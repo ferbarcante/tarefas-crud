@@ -9,6 +9,9 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    protected $table = 'categoria';
+    public $timestamps = false; // Desabilita timestamps
+
     protected $fillable = [
         "nome"
     ];

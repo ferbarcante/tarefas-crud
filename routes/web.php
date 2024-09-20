@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//crud categoria
+Route::get('/categoria', action: [CategoriaController::class, 'index']) -> name('categorias.index');
+Route::get('/categoria/create', action: [CategoriaController::class, 'create']) -> name('categorias.create');
+Route::post('/categoria', action: [CategoriaController::class, 'store']) -> name('categorias.store');
+
+
+
