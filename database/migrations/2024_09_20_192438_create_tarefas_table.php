@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_responsavel')->constrained('usuarios')->onDelete('cascade'); // FK para a tabela 'usuarios'
-            $table->foreignId('id_categoria')->constrained('categorias')->onDelete('cascade'); // FK para a tabela 'categorias
             $table->timestamp('inicio')->nullable(); // Campo 'inicio'
             $table->timestamp('pausa')->nullable(); // Campo 'pausa'
             $table->timestamp('termino')->nullable(); // Campo 'termino'
