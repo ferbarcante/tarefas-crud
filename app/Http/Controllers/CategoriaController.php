@@ -25,3 +25,5 @@ class CategoriaController extends Controller
         return redirect(route('categorias.index'));
     }
 }
+
+
