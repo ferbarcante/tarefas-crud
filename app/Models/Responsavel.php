@@ -9,6 +9,9 @@ class Responsavel extends Model
 {
     use HasFactory;
 
+    protected $table = 'responsavel';
+    public $timestamps = false;
+
     protected $fillable = [
         'nome'
     ];

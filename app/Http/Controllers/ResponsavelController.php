@@ -23,4 +23,5 @@ class ResponsavelController extends Controller
 
         $novoResponsavel = Responsavel::create($data);
         return redirect(route('responsavel.index'));
+    }
 }
