@@ -33,5 +33,18 @@ class TarefaController extends Controller
     
     }
 
+    public function iniciar($id){
+
+        $tarefa = Tarefa::findOrFail($id);
+
+        if($tarefa->finalizado){
+            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+        }
+
+        $tarefa->inicio = now();
+        $tarefa->save();
+
+        return redirect()->route('tarefas.index')->with('success', 'Tarefa iniciada com sucesso!');
+    }
 
 }
