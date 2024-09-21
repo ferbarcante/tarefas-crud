@@ -18,4 +18,14 @@ class Tarefa extends Model
         'tempo_gasto',
         'titulo'
     ];
+
+    public function responsavel()
+    {
+        return $this->belongsTo(Responsavel::class, 'id_responsavel');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
 }

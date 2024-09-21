@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function(){
+    return view('home');
+})->name('home');
+
 //crud categoria
 Route::get('/categoria', action: [CategoriaController::class, 'index']) -> name('categorias.index');
 Route::get('/categoria/create', action: [CategoriaController::class, 'create']) -> name('categorias.create');
@@ -34,3 +38,7 @@ Route::post('/responsavel', action: [ResponsavelController::class,'store']) -> n
 Route::get('/tarefa', action: [TarefaController::class,'index']) -> name('tarefa.index');
 Route::get('/tarefa/create', action: [TarefaController::class, 'create']) -> name('tarefa.create');
 Route::post('/tarefa', action: [TarefaController::class,'store']) -> name('tarefa.store');
+
+Route::post('/tarefa/{id}/iniciar', [TarefaController::class, 'iniciar'])->name('tarefa.iniciar');
+Route::post('/tarefa/{id}/pausar', [TarefaController::class, 'pausar'])->name('tarefa.pausar');
+Route::post('/tarefa/{id}/finalizar', [TarefaController::class, 'finalizar'])->name('tarefa.finalizar');

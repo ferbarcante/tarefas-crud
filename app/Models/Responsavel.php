@@ -15,4 +15,9 @@ class Responsavel extends Model
     protected $fillable = [
         'nome'
     ];
+
+    public function tarefas(){
+         return $this->hasMany(Tarefa::class, 'id_responsavel');
+    }
+
 }

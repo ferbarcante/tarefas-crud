@@ -15,4 +15,9 @@ class Categoria extends Model
     protected $fillable = [
         "nome"
     ];
+
+    public function tarefas(){
+       return $this->hasMany(Tarefa::class, 'id_categoria');
+    }
+
 }

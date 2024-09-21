@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 class TarefaController extends Controller
 {
     public function index(){
-        return view("tarefa.index");
+        $tarefas = Tarefa::with(['responsavel', 'categoria'])->get();
+        return view("tarefa.index", compact('tarefas'));
     }
 
     public function create(){
@@ -33,18 +34,51 @@ class TarefaController extends Controller
     
     }
 
-    public function iniciar($id){
+    public function iniciar(Request $request){
 
-        $tarefa = Tarefa::findOrFail($id);
+        $tarefa = Tarefa::find(id: $request -> id);
 
-        if($tarefa->finalizado){
+        if($tarefa->termino){
             return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
         }
 
         $tarefa->inicio = now();
         $tarefa->save();
 
-        return redirect()->route('tarefas.index')->with('success', 'Tarefa iniciada com sucesso!');
+        return redirect()->route('tarefa.index')->with('success', 'Tarefa iniciada!');
     }
 
+    public function pausar(Request $request){
+        $tarefa= Tarefa::find($request -> id);
+
+        if(!$tarefa->inicio){
+            return redirect()->back()->withErrors(['Essa tarefa não foi iniciada']);
+        }
+
+        if($tarefa->termino){
+            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+        }
+
+        $tarefa->pausa = now();
+        $tarefa->save();
+
+        return redirect()->route('tarefa.index')->with('success','Tarefa pausada!');
+    }
+
+    public function finalizar(Request $request){
+        $tarefa = Tarefa::find($request -> id);
+
+        if(!$tarefa->inicio){
+            return redirect()->back()->withErrors(['Essa tarefa não foi iniciada']);
+        }
+
+        if($tarefa->termino){
+            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+        }
+
+        $tarefa->termino = now();
+        $tarefa->save();
+
+        return redirect()->route('tarefa.index')->with('success','Tarefa finalizada!');
+    }
 }
