@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ResponsavelController;
+use App\Http\Controllers\TarefaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,5 +30,7 @@ Route::get('/responsavel', action: [ResponsavelController::class, 'index']) -> n
 Route::get('/responsavel/create', action: [ResponsavelController::class,'create']) -> name('responsavel.create');
 Route::post('/responsavel', action: [ResponsavelController::class,'store']) -> name('responsavel.store');
 
-
-
+//crud tarefa
+Route::get('/tarefa', action: [TarefaController::class,'index']) -> name('tarefa.index');
+Route::get('/tarefa/create', action: [TarefaController::class, 'create']) -> name('tarefa.create');
+Route::post('/tarefa', action: [TarefaController::class,'store']) -> name('tarefa.store');
