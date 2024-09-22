@@ -42,3 +42,5 @@ Route::post('/tarefa', action: [TarefaController::class,'store']) -> name('taref
 Route::post('/tarefa/{id}/iniciar', [TarefaController::class, 'iniciar'])->name('tarefa.iniciar');
 Route::post('/tarefa/{id}/pausar', [TarefaController::class, 'pausar'])->name('tarefa.pausar');
 Route::post('/tarefa/{id}/finalizar', [TarefaController::class, 'finalizar'])->name('tarefa.finalizar');
+
+Route::get('/tarefa/exibir', [TarefaController::class, 'exibir'])->name('tarefa.exibir');

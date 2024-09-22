@@ -22,7 +22,7 @@ class CategoriaController extends Controller
 
         $novaCategoria = Categoria::create($data);
 
-        return redirect(route('categorias.index'));
+        return redirect(route('home'));
     }
 }
 
