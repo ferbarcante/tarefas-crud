@@ -7,13 +7,6 @@ Este é um sistema de gerenciamento de tarefas construído com Laravel, permitin
 ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-### Pré-requisitos
-
-Antes de começar, certifique-se de que você tem:
-
-- PHP (>= 7.3)
-- Composer
-- MySQL ou outro banco de dados suportado pelo Laravel
 
 ### Instalação
 
@@ -33,12 +26,16 @@ Antes de começar, certifique-se de que você tem:
    ```bash
    cp .env.example .env
     ```
-5. Configure seu banco de dados no arquivo .env
-6. Gere a chave de aplicativo:
+5. Gere a chave de aplicativo:
    ```bash
    php artisan key:generate
     ```
-7. Execute as migrações:
+6. Execute as migrações:
     ```bash
     php artisan migrate
     ```
+
+## Demonstração
+![2024-09-2213-34-44-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/e99a905f-123d-40f8-8ede-104845f43fac)
+
+
