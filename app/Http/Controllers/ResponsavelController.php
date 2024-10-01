@@ -21,7 +21,7 @@ class ResponsavelController extends Controller
             'nome' => 'required'
         ]);
 
-        $novoResponsavel = Responsavel::create($data);
+        Responsavel::create($data);
         return redirect(route('home'));
     }
 }

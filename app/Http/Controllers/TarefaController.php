@@ -40,65 +40,97 @@ class TarefaController extends Controller
         $tarefa = Tarefa::find(id: $request -> id);
 
         if($tarefa->termino){
-            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+            return redirect()->back()
+            ->withErrors(['Essa tarefa já foi finalizada']);
         }
 
         $tarefa->inicio = now();
         $tarefa->save();
 
-        return redirect()->route('tarefa.index')->with('success', 'Tarefa iniciada!');
+        return redirect()->route('tarefa.index')
+        ->with('success', 'Tarefa iniciada!');
     }
 
     public function pausar(Request $request){
         $tarefa= Tarefa::find($request -> id);
 
         if(!$tarefa->inicio){
-            return redirect()->back()->withErrors(['Essa tarefa não foi iniciada']);
+            return redirect()->back()
+            ->withErrors(['Essa tarefa não foi iniciada']);
         }
 
         if($tarefa->termino){
-            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+            return redirect()->back()
+            ->withErrors(['Essa tarefa já foi finalizada']);
         }
 
         $tarefa->pausa = now();
         $tarefa->save();
 
-        return redirect()->route('tarefa.index')->with('success','Tarefa pausada!');
+        return redirect()->route('tarefa.index')
+        ->with('success','Tarefa pausada!');
+    }
+
+    public function retomar(Request $request) {
+        $tarefa = Tarefa::find($request->id);
+    
+        if (!$tarefa->pausa) {
+            return redirect()->back()->withErrors(['Essa tarefa não está pausada']);
+        }
+    
+        if ($tarefa->termino) {
+            return redirect()->back()
+            ->withErrors(['Essa tarefa já foi finalizada']);
+        }
+    
+        $tarefa->retomada = now();
+        $tarefa->save();
+    
+        return redirect()->route('tarefa.index')
+        ->with('success', 'Tarefa retomada!');
     }
 
     public function finalizar(Request $request){
         $tarefa = Tarefa::find($request -> id);
 
         if(!$tarefa->inicio){
-            return redirect()->back()->withErrors(['Essa tarefa não foi iniciada']);
+            return redirect()->back()
+            ->withErrors(['Essa tarefa não foi iniciada']);
         }
 
         if($tarefa->termino){
-            return redirect()->back()->withErrors(['Essa tarefa já foi finalizada']);
+            return redirect()->back()
+            ->withErrors(['Essa tarefa já foi finalizada']);
         }
 
         $tarefa->termino = now();
         $tarefa->save();
 
-        return redirect()->route('tarefa.index')->with('success','Tarefa finalizada!');
+        return redirect()->route('tarefa.index')
+        ->with('success','Tarefa finalizada!');
     }
 
     public function exibir() {
         $tarefas = Tarefa::with(['responsavel', 'categoria'])->get();
     
         $tarefasComTempo = $tarefas->map(function($tarefa) {
-            // Converta os campos de data
-            $tarefa->inicio = Carbon::parse($tarefa->inicio);
-            $tarefa->termino = $tarefa->termino ? Carbon::parse($tarefa->termino) : null;
-            $tarefa->pausa = $tarefa->pausa ? Carbon::parse($tarefa->pausa) : null;
-            $tarefa->retomada = $tarefa->retomada ? Carbon::parse($tarefa->retomada) : null;
+       
+        $tarefa->inicio = Carbon::parse($tarefa->inicio);
+        $tarefa->termino = $tarefa->termino ? 
+        Carbon::parse($tarefa->termino) : null;
+        $tarefa->pausa = $tarefa->pausa ? 
+        Carbon::parse($tarefa->pausa) : null;
+        $tarefa->retomada = $tarefa->retomada ? 
+        Carbon::parse($tarefa->retomada) : null;
     
-            // Calcule o tempo gasto
-            $tarefa->tempo_gasto = $this->calcularTempoGasto($tarefa);
-            return $tarefa;
+        $tarefa->tempo_gasto = $this->calcularTempoGasto($tarefa);
+        $tarefa->save();
+
+        return $tarefa;
         });
     
-        return view('tarefa.exibir', compact('tarefasComTempo'));
+        return view('tarefa.exibir', 
+        compact('tarefasComTempo'));
     }
     
 
@@ -107,22 +139,20 @@ class TarefaController extends Controller
             return 'Tarefa não encontrada';
         }
     
-        // Converta as strings para instâncias de Carbon
-        $inicio = Carbon::parse($tarefa->inicio);
-        $termino = $tarefa->termino ? Carbon::parse($tarefa->termino) : null;
+        $inicio = $tarefa->inicio;
+        $termino = $tarefa->termino;
     
         if ($termino) {
             $tempoTotal = $termino->diffInMinutes($inicio);
     
-            // Considerar pausas, se houver
             if ($tarefa->pausa && $tarefa->retomada) {
-                $pausa = Carbon::parse($tarefa->pausa);
-                $retomada = Carbon::parse($tarefa->retomada);
+                $pausa = $tarefa->pausa;
+                $retomada = $tarefa->retomada;
                 $tempoPausado = $pausa->diffInMinutes($retomada);
-                $tempoTotal -= $tempoPausado; // Subtrai o tempo que foi pausado
+                $tempoTotal -= $tempoPausado; 
             }
     
-            return "{$tempoTotal} minutos";
+            return $tempoTotal;
         }
     
         return 'N/A';

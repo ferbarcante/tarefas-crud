@@ -14,6 +14,7 @@ class Tarefa extends Model
         'id_categoria',
         'inicio',
         'pausa',
+        'retomada',
         'termino',
         'tempo_gasto',
         'titulo'

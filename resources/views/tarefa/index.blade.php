@@ -32,6 +32,10 @@
                         @csrf
                         <button type="submit">Pausar</button>
                     </form>
+                    <form action="{{ route('tarefa.retomar', $tarefa->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit">Retomar</button>
+                    </form>
                     <form action="{{ route('tarefa.finalizar', $tarefa->id) }}" method="POST" style="display:inline;">
                         @csrf
                         <button type="submit">Finalizar</button>

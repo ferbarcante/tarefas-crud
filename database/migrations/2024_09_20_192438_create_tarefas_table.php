@@ -6,28 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('inicio')->nullable(); // Campo 'inicio'
-            $table->timestamp('pausa')->nullable(); // Campo 'pausa'
-            $table->timestamp('termino')->nullable(); // Campo 'termino'
-            $table->integer('tempo_gasto')->nullable(); // Campo 'tempo gasto' (em minutos, por exemplo)
-            $table->string('titulo'); // Campo 'titulo'
-            $table->timestamps(); // Adiciona created_at e updated_at
+            $table->timestamp('inicio')->nullable(); 
+            $table->timestamp('pausa')->nullable(); 
+            $table->timestamp('termino')->nullable(); 
+            $table->integer('tempo_gasto')->nullable(); 
+            $table->string('titulo'); 
+            $table->timestamps(); 
 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tarefas');
     }
 };
+
+

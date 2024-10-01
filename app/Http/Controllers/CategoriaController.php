@@ -20,7 +20,7 @@ class CategoriaController extends Controller
             'nome' => 'required'
         ]);
 
-        $novaCategoria = Categoria::create($data);
+        Categoria::create($data);
 
         return redirect(route('home'));
     }
